@@ -1,0 +1,22 @@
+form([formGroup]="form", novalidate)
+    label Временной интервал:
+        span.highlighted(*ngIf="mark") &nbsp;*
+    .row
+        .col-xs-6
+            .ui-calendar.search-form
+                p-calendar.ui-inputtext.search-form(
+                formControlName="fromTime",
+                [maxDate]="form.controls.toTime.value",
+                dateFormat = "dd.mm.yy",
+                readonlyInput="true",
+                showTime="true",
+                (onSelect)="emitDate()")
+        .col-xs-6
+            .ui-calendar.search-form
+                p-calendar.ui-inputtext.search-form(
+                formControlName="toTime",
+                [minDate]="form.controls.fromTime.value",
+                dateFormat = "dd.mm.yy",
+                readonlyInput="true",
+                showTime="true",
+                (onSelect)="emitDate()")

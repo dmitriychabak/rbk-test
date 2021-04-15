@@ -1,0 +1,29 @@
+doctype html
+button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + paymentID + 'capture'")
+    | Подтвердить платеж
+
+.modal.fade(tabindex="-1", role="dialog", id="{{paymentID}}capture", data-backdrop="false")
+    .modal-dialog.modal-sm
+        .modal-content
+            .modal-header
+                h5.modal-title Подтверждение платежа
+            .modal-body
+                form([formGroup]="form", novalidate)
+                    .form-group
+                        label Подтверждаемая сумма платежа:
+                        input.form-control(type="number", formControlName="amount")
+                    .form-group
+                        label Причина:
+                        input.form-control(formControlName="reason")
+            .modal-footer
+                .btn-toolbar
+                    .btn-group.btn-group-sm(*ngIf="!inProcess")
+                        button.btn.btn-default((click)="close()") Назад
+                    .btn-group.btn-group-sm.pull-right
+                        button.btn.btn-primary(
+                            *ngIf="!inProcess",
+                            [disabled]="!form.valid",
+                            (click)="capturePayment()") Подтвердить платеж
+                        button.btn.btn-primary(*ngIf="inProcess", disabled="true")
+                            i.fa.fa-cog.fa-spin.fa-1x.fa-fw
+                            span В процессе...

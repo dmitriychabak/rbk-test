@@ -1,0 +1,91 @@
+form([formGroup]="searchForm", novalidate)
+    .row
+        .col-sm-3.col-xs-12
+            .form-group
+                label Идентификатор инвойса:
+                input.form-control(formControlName="invoiceID")
+        .col-sm-3.col-xs-12
+            .form-group
+                label Статус инвойса:
+                kof-select(
+                [items]="invoiceStatuses",
+                [placeholder]="'Любой статус'",
+                formControlName="invoiceStatus")
+        .col-sm-3.col-xs-12
+            .form-group
+                label Статус платежа:
+                kof-select(
+                [items]="paymentStatuses",
+                [placeholder]="'Любой статус'",
+                formControlName="paymentStatus")
+        .col-sm-3.col-xs-12
+            .toggle-button-container
+                button.btn.btn-default((click)="toggleAdditionalParamsVisible()") ...
+
+    div(*ngIf="additionalParamsVisible", [@flyInOut]="in")
+        .row
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Временной интервал:
+                    .row
+                        .col-sm-6.col-xs-12
+                            .ui-calendar.search-form
+                                p-calendar.ui-inputtext.search-form(
+                                formControlName="from",
+                                dateFormat = "dd.mm.yy",
+                                [maxDate]="searchForm.controls.to.value",
+                                readonlyInput="true")
+                        .col-sm-6.col-xs-12
+                            .ui-calendar.search-form
+                                p-calendar.ui-inputtext.search-form(
+                                formControlName="to",
+                                dateFormat = "dd.mm.yy",
+                                [minDate]="searchForm.controls.from.value",
+                                readonlyInput="true")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Метод оплаты:
+                    kof-select(formControlName="paymentMethod", [items]="paymentMethods", [placeholder]="'Любой метод'")
+            .col-sm-3.col-xs-12(*ngIf="searchForm.value.paymentMethod === 'bankCard'")
+                .form-group
+                    label Провайдер токенов
+                    kof-select(formControlName="bankCardTokenProvider", [items]="tokenProviders", [placeholder]="'Любой провайдер'")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Тип проведения платежа:
+                    kof-select(formControlName="paymentFlow", [items]="paymentFlows", [placeholder]="'Любой тип'")
+        .row
+            .col-sm-3.col-xs-12
+                .form-group
+                    label IP-адрес плательщика:
+                    input.form-control(formControlName="ip")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Email плательщика:
+                    input.form-control(formControlName="email")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Идентификатор плательщика:
+                    input.form-control(formControlName="customerID")
+        .row
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Номер карты (первые 6 цифр):
+                    input.form-control(maxlength=6, formControlName="first6")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Номер карты (последние 4 цифры):
+                    input.form-control(maxlength=4, formControlName="last4")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label RRN:
+                    input.form-control(formControlName="rrn")
+        .row
+            .col-sm-6.col-xs-12
+                .form-group
+                    label Fingerprint:
+                    input.form-control(formControlName="fingerprint")
+        .row
+            .col-sm-9.col-xs-12
+                .reset-button-container
+                    button.btn.btn-default((click)="reset()") Сбросить параметры поиска

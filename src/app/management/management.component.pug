@@ -1,0 +1,55 @@
+.row
+    .col-xs-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+        .x_panel(*ngIf="claims?.length > 0")
+            .x_title
+                h5 Заявки
+            .x_content
+                table.table.table-striped
+                    thead
+                        tr
+                            th Идентификатор заявки
+                            th Статус
+                            th Время создания
+                            th
+                    tbody(*ngFor="let claim of claims")
+                        tr
+                            td {{claim.id}}
+                            td {{claim.status | kofClaimStatus}}
+                            td {{claim.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+                            td
+                                button.btn.btn-xs.btn-default.pull-right((click)="goToClaimDetails(claim.id)") Детали заявки
+        .x_panel
+            .x_title
+                h5 Магазины
+            .x_content
+                kof-loading([isLoading]="isCreating")
+                table.table.table-striped(*ngIf="shops?.length > 0")
+                    thead
+                        tr
+                            th Наименование
+                            th.hidden-xs.hidden-sm Адрес
+                            th
+                    tbody(*ngFor="let shop of shops")
+                        tr
+                            td {{shop?.details?.name}}
+                            td.hidden-xs.hidden-sm {{shop?.location?.url}}
+                            td
+                                .pull-right
+                                    button.btn.btn-xs.btn-default((click)="goToShop(shop.id)") Перейти в магазин
+        .x_panel
+            .x_title
+                h5 Действия
+            .x_content
+                button.btn.btn-default((click)="createShop()") Создать магазин
+        .x_panel
+            .x_title
+                h5 Кошельки
+            .x_content
+                button.btn.btn-default((click)="toWallets()") Управление кошельками
+p-dialog([(visible)]="warning", width="660")
+    p Уважаемый клиент!
+    p Мы обновили Личный кабинет. Теперь он удобнее и информативнее, а скоро там появятся и новые полезные функции.
+    p Все ваши настройки были сохранены и отобразятся в новой версии.
+    p 
+      a.new-dashboard-link(href="https://dashboard.rbk.money") Перейти на новую версию кабинета dashboard.rbk.money
+    button.btn.btn-default((click)="closeWarning()") OK

@@ -1,0 +1,25 @@
+.row
+    .col-xs-12.col-md-10.col-md-offset-1
+        .x_panel
+            .x_title
+                h5 Действия
+            .x_content
+                .row(*ngIf="shop")
+                    .col-xs-12.col-sm-6.col-md-3
+                        kof-create-invoice([shopID]="shop.id", [shopCurrency]="shop.account.currency", (onCreate)="onCreate($event)")
+                    .col-xs-12.col-sm-6.col-md-3
+                        kof-invoice-template-payment-link([shopID]="shop.id", [settlementID]="shop.account.settlementID")
+                .row(*ngIf="!shop")
+                    .col-xs-12 Загрузка...
+        .x_panel
+            .x_title
+                h5 Поиск инвойсов
+            .x_content
+                .row
+                    .col-xs-12
+                        kof-search-form((onSearch)="onSearch()")
+                .ln_solid
+                .row
+                    .col-xs-12
+                        kof-search-result([invoices]="invoices")
+                        kof-stepper((onChange)="onChangePage($event)", [hasNext]="hasNext()", [page]="page + 1")

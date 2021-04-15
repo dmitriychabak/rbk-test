@@ -1,0 +1,36 @@
+form.form-horizontal.form-label-left.css-form
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left Номер счета:
+        .col-xs-12.col-sm-8
+            div {{bankAccount?.number}}
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left International Bank Account Number (IBAN):
+        .col-xs-12.col-sm-8
+            div {{bankAccount?.iban}}
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left Business Identifier Code (BIC):
+        .col-xs-12.col-sm-8
+            div {{bankAccount?.bankDetails?.bic}}
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left ABA Routing Transit Number (ABA RTN):
+        .col-xs-12.col-sm-8
+            div {{bankAccount?.bankDetails?.abartn}}
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left Наименование юридического лица банковской организации:
+        .col-xs-12.col-sm-8
+            div {{bankAccount?.bankDetails?.name}}
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left Страна резиденции банковской организации:
+        .col-xs-12.col-sm-8
+            div {{bankAccount?.bankDetails?.countryCode}}
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left Адрес юридического лица банковской организации:
+        .col-xs-12.col-sm-8
+            div {{bankAccount?.bankDetails?.address}}

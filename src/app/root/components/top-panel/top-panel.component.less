@@ -1,0 +1,22 @@
+.top-panel-breadcrumb {
+    display: table-cell;
+    vertical-align: middle;
+    background: none;
+    font-weight: 500;
+    padding: 8px 15px;
+
+    @media (max-width: 991px) {
+        display: none;
+    }
+}
+
+.top-panel__link.top-panel__link.top-panel__link {
+    @media (max-width: 600px) {
+        display: none;
+    }
+}
+
+/deep/.top-panel__link:hover *,
+/deep/.top-panel__link_active * {
+    text-decoration: underline;
+}

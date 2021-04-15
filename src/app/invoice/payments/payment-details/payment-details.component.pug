@@ -1,0 +1,162 @@
+form.form-horizontal.form-label-left.css-form
+    .row
+        .col-xs-12.col-sm-6
+            .row
+                .col-xs-12
+                    .form-group
+                        label.col-sm-5 Идентификатор:
+                        .col-sm-7
+                            div {{payment.id}}
+            .row
+                .col-xs-12
+                    .form-group
+                        label.col-sm-5 Статус:
+                        .col-sm-7
+                            span.label.label-default([ngClass]="getLabelClass(payment.status)") {{payment.status | kofPaymentStatus}}
+            .row
+                .col-xs-12
+                    .form-group
+                        label.col-sm-5 Дата и время создания:
+                        .col-sm-7
+                            div {{payment.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+            .row
+                .col-xs-12
+                    .form-group
+                        label.col-sm-5 Сумма списания:
+                        .col-sm-7
+                            div {{payment.amount | kofRoubleCurrency}} {{payment.currency | kofCurrency}}
+            .row
+                .col-xs-12
+                    .form-group
+                        label.col-sm-5 Сумма к зачислению:
+                        .col-sm-7
+                            div {{payment.amount - payment.fee | kofRoubleCurrency}} {{payment.currency | kofCurrency}}
+            .row(*ngIf="payment.transactionInfo?.rrn")
+                .col-xs-12
+                    .form-group
+                        label.col-sm-5 RRN:
+                        .col-sm-7
+                            div {{payment.transactionInfo.rrn}}
+            .row(*ngIf="payment.error")
+                .col-xs-12
+                    .form-group
+                        label.col-sm-5 Сообщение об ошибке:
+                        .col-sm-7
+                            div {{getMessage(payment.error)}}
+
+            div(*ngIf="flowHold")
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Удержан до:
+                            .col-sm-7
+                                div {{flowHold.heldUntil | date: "dd.MM.yyyy HH:mm:ss"}}
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 По истечению срока удержания:
+                            .col-sm-7
+                                div {{flowHold.onHoldExpiration | kofOnHoldExpiration}}
+
+        .col-xs-12.col-sm-6
+            div(*ngIf="paymentResourcePayer")
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Email плательщика:
+                            .col-sm-7
+                                div {{paymentResourcePayer.contactInfo?.email}}
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Fingerprint:
+                            .col-sm-7
+                                div.wrappable-text {{paymentResourcePayer.clientInfo?.fingerprint}}
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 IP-адрес плательщика:
+                            .col-sm-7
+                                div {{paymentResourcePayer.clientInfo?.ip}}
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Метод оплаты:
+                            .col-sm-7
+                                div
+                                    | {{paymentResourcePayer.paymentToolDetails?.detailsType | kofPaymentToolDetailsType}}
+                                    span(*ngIf="bankCard && bankCard.tokenProvider") &nbsp;({{bankCard.tokenProvider | kofPaymentToolDetailsTokenProvider}})
+
+                .row
+                    .col-xs-12(*ngIf="payment.shortID")
+                        .form-group
+                            label.col-sm-5 ID платежа провайдера:
+                            .col-sm-7
+                                div {{payment.shortID}}
+
+            div(*ngIf="customerPayer")
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 ID плательщика:
+                            .col-sm-7
+                                div {{ customerPayer.customerID }}
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Email плательщика:
+                            .col-sm-7
+                                div {{ customer?.contactInfo?.email }}
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Статус плательщика:
+                            .col-sm-7
+                                div {{ customer?.status | kofCustomerStatus }}
+
+            div(*ngIf="recurrentPayer")
+                .row(*ngIf="recurrentPayer.contactInfo?.email")
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Email плательщика:
+                            .col-sm-7
+                                div {{ recurrentPayer.contactInfo.email }}
+                .row(*ngIf="recurrentPayer.recurrentParentPayment?.paymentID")
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 ID родительского платежа:
+                            .col-sm-7
+                                div {{ recurrentPayer.recurrentParentPayment.paymentID }}
+                .row(*ngIf="recurrentPayer.recurrentParentPayment?.invoiceID")
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 ID родительского инвойса:
+                            .col-sm-7
+                                a([routerLink]="[getRecurrentParentInvoiceLink()]") {{ recurrentPayer.recurrentParentPayment.invoiceID }}
+
+            div(*ngIf="bankCard")
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Данные карты:
+                            .col-sm-7
+                                div {{ bankCard.cardNumberMask }} ({{ bankCard.paymentSystem }})
+            div(*ngIf="digitalWallet")
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Провайдер:
+                            .col-sm-7
+                                div {{digitalWallet.digitalWalletDetailsType | kofProviderName}}
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Данные кошелька:
+                            .col-sm-7
+                                div {{digitalWallet.phoneNumberMask}}
+            div(*ngIf="terminal")
+                .row
+                    .col-xs-12
+                        .form-group
+                            label.col-sm-5 Провайдер:
+                            .col-sm-7
+                                div {{terminal.provider | kofProviderName}}

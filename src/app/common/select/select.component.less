@@ -1,0 +1,35 @@
+.kof-select {
+    overflow: hidden;
+    position: relative;
+    select {
+        background: transparent;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        outline: 0;
+        border: 1px solid #ccc;
+        border-radius: 0;
+        width: 100%;
+        padding: 0 20px 0 10px;
+        font-size: 13px;
+        line-height: 2;
+        color: #000;
+        text-shadow: 0 0 0 #000;
+    }
+    &.has-error {
+        select {
+            border-color: #a94442;
+        }
+    }
+    &::before {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 6px solid #888;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+}

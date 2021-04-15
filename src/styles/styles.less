@@ -1,0 +1,281 @@
+body {
+    min-width: 360px;
+}
+
+form {
+    width: 100%;
+}
+
+.dashboard_stats_count {
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+.right_col {
+    display: block;
+    position: relative;
+    min-height: 100vh;
+    padding: 0 !important;
+}
+
+.top_nav {
+    margin: 0 !important;
+    .navbar-right {
+        width: 100%;
+    }
+    .nav_menu {
+        float: none;
+        display: table;
+        margin: 0;
+        .toggle {
+            float: none;
+            display: table-cell;
+            width: 52px;
+            padding: 0;
+            vertical-align: middle;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 500;
+        }
+        .shop-selector {
+            @media (max-width: 600px) {
+                display: none;
+            }
+        }
+        .toggle-menu {
+            display: none;
+            @media (max-width: 991px) {
+                display: table-cell;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    // этот media - это переписывание стилей gentelella для того, чтобы на больших размерах экрана sidebar был таким же как и на маленьких
+    .left_col {
+        width: 70px !important;
+    }
+    .right_col {
+        margin-left: 70px !important;
+    }
+    .nav.side-menu li a {
+        font-size: 9px !important;
+        font-weight: 400 !important;
+        text-align: center !important;
+        padding: 10px 5px !important;
+        i {
+            font-size: 25px !important;
+            width: 100% !important;
+            margin-bottom: 5px !important;
+        }
+    }
+}
+
+.outlet {
+    display: block;
+    position: relative;
+    padding: 10px;
+}
+
+.credit_card_group {
+    margin-bottom: 1px;
+    label {
+        padding-top: 0 !important;
+        line-height: 1.3;
+    }
+}
+
+.credit_card_description {
+    font-size: 12px;
+}
+
+.custom_pagination {
+    margin: 0;
+}
+
+.loading_spinner {
+    width: 100% !important;
+    font-size: 40px !important;
+}
+
+.custom-chevron {
+    margin-top: 3px;
+}
+
+.form-search-invoices {
+    text-align: right;
+    @media (max-width: 767px) {
+        text-align: left;
+    }
+}
+
+.form-inline .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.form-group {
+    label {
+        line-height: 14px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        span {
+            line-height: inherit;
+        }
+    }
+}
+
+div.tile_count {
+    .tile_stats_count {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        height: 80px;
+        &:before {
+            content: '';
+            position: absolute;
+            height: 80%;
+            left: 0;
+            top: 50%;
+            transform: translate(0, -50%);
+            margin-top: 0;
+            border-left: 2px solid #adb2b5;
+        }
+    }
+}
+
+.form-label-right {
+    text-align: right;
+}
+
+/* fix gentelella styles: begin */
+
+.ui-inputtext {
+    padding: 0;
+}
+
+input.ui-inputtext {
+    padding: 4px;
+    margin: 4px 2px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    border-radius: 0;
+}
+
+/* fix gentelella styles: end */
+
+/* Calendar global styles: begin */
+
+p-calendar.ui-inputtext {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+
+    > span {
+        width: 100%;
+    }
+}
+
+span.fa.fa-angle-left,
+span.fa.fa-angle-right {
+    display: inline-block;
+}
+
+/* Calendar global styles: end */
+
+.hand-cursor {
+    cursor: pointer;
+}
+
+ul.bar_tabs > li {
+    cursor: pointer;
+    &.active a {
+        border-bottom: 1px solid transparent;
+    }
+}
+
+.nav-md li.active ul.nav.child_menu,
+.opened ul.nav.child_menu {
+    display: block;
+}
+
+.nav-sm .nav.side-menu li a {
+    font-size: 9px;
+}
+
+.nav-sm > .container.body > .main_container > kof-sidebar > .left_col {
+    z-index: auto;
+}
+
+.x_title span,
+.x_title i {
+    color: #bdbdbd;
+}
+
+span.highlighted {
+    color: #a94442;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.sidebar-disabled {
+    .right_col {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    .left_col {
+        display: none !important;
+    }
+}
+
+.modal.fade.in {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &.pull-right {
+        margin-right: 0;
+        margin-left: 5px;
+    }
+}
+
+.desktop-only {
+    @media (max-width: 991px) {
+        display: none !important;
+    }
+}
+
+.clear-margin {
+    margin: 0 !important;
+}
+
+.input-group-btn button {
+    height: 34px;
+}
+
+/* fix input-group height */
+.input-group-btn button {
+    height: 34px;
+}
+
+.form-list {
+    font-size: 12px;
+    padding: 10px 0 5px;
+    border-bottom: 1px solid #e5e5e5;
+    .form-group {
+        margin-bottom: 5px;
+    }
+}

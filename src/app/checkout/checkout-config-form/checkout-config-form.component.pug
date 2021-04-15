@@ -1,0 +1,50 @@
+form(*ngIf="form", [formGroup]="form", novalidate)
+    .form-group
+        .row
+            .col-xs-12.col-sm-5
+                label.text-left Наименование вашей компании или сайта:
+            .col-xs-12.col-sm-7
+                input.form-control(type="text", formControlName="name")
+    .form-group
+        .row
+            .col-xs-12.col-sm-5
+                label.text-left Описание вашего продукта или сервиса:
+            .col-xs-12.col-sm-7
+                input.form-control(type="text", formControlName="description")
+    .form-group
+        .row
+            .col-xs-12.col-sm-5
+                label.text-left Email плательщика (если известен):
+            .col-xs-12.col-sm-7
+                input.form-control(type="text", formControlName="email", placeholder="example@mail.com")
+    .form-group
+        .row
+            .col-xs-12.col-sm-5
+                label.text-left Redirect URL после упешного завершения платежа:
+            .col-xs-12.col-sm-7
+                input.form-control(type="text", formControlName="redirectUrl", placeholder="http(s)://example.com")
+    .form-group(*ngIf="additionalMethodConfigs")
+        .row
+            .col-xs-12
+                label.text-left Методы оплаты:
+            .col-xs-12.col-sm-6.col-md-4(*ngFor="let config of additionalMethodConfigs")
+                label.text-left
+                    input(type="checkbox", [formControlName]="config.formControlName", (click)="toggleHolds()")
+                    | &nbsp;{{config.label}}
+    div(*ngIf="isHoldAvailable")
+        .ln_solid
+        .form-group
+            .row
+                .col-xs-12
+                    label.text-left
+                        input(type="checkbox", formControlName="paymentFlowHold")
+                        | &nbsp;Платеж производить с удержанием денежных средств
+        .form-group(*ngIf="form.value.paymentFlowHold")
+            .row
+                .col-xs-12.col-sm-5
+                    label.text-left Политика, которая будет применена по истечении срока удержания:
+                .col-xs-12.col-sm-7
+                    .btn-group
+                        label.btn.btn-sm.btn-default(*ngFor="let holdExpirationItem of holdExpirationItems", [ngClass]="{'active': isSelected(holdExpirationItem.value)}")
+                            input(type="radio", formControlName="holdExpiration", value="{{holdExpirationItem.value}}")
+                            | {{holdExpirationItem.label}}

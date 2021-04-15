@@ -1,0 +1,19 @@
+table.table.table-striped
+    thead
+        tr
+            th Идентификатор
+            th Сумма к зачислению
+            th Время создания
+            th
+    tbody(*ngFor="let item of payoutListItems")
+        tr
+            td {{item.payout.id}}
+            td {{item.payout.amount | kofRoubleCurrency}} {{item.payout.currency | kofCurrency}}
+            td {{item.payout.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+            td
+                .pull-right(*ngIf="item.payout.payoutSummary.length > 0")
+                    button.btn.btn-xs.btn-default((click)="togglePayoutDetailsPanel(item)")
+                        | {{item.visible ? 'Скрыть' : 'Показать'}} детали
+        tr(*ngIf="item.visible")
+            td.row(colspan="4")
+                kof-payout-summary([summary]="item.payout.payoutSummary")

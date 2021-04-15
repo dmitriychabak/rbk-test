@@ -1,0 +1,21 @@
+.left_col.col-md-3
+    .left_col.scroll-view
+        #sidebar-menu.main_menu_side.hidden-print.main_menu
+            .menu_section
+                ul.nav.side-menu
+                    li([routerLinkActive]="['active']")
+                        a(routerLink="/wallets/list")
+                            i.fa.fa-suitcase
+                            | Кошельки
+                    li([routerLinkActive]="['active']")
+                        a(routerLink="/wallets/deposits")
+                            i.fa.fa-level-down
+                            | Пополнения
+                    li([routerLinkActive]="['active']")
+                        a(routerLink="/wallets/withdrawals")
+                            i.fa.fa-level-up
+                            | Выводы
+                    li([routerLinkActive]="['active']")
+                        a(routerLink="/wallets/documents")
+                            i.fa.fa-file-o
+                            | Документы

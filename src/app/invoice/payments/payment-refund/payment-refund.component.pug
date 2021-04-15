@@ -1,0 +1,32 @@
+doctype html
+button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + payment.id + 'refund'", (click)="open()")
+    | Совершить возврат платежа
+
+.modal.fade(tabindex="-1", role="dialog", id="{{payment.id}}refund", data-backdrop="false")
+    .modal-dialog.modal-md
+        .modal-content
+            .modal-header
+                h5.modal-title Возврат платежа
+            .modal-body
+                form([formGroup]="form", novalidate)
+                    .row
+                        .col-xs-12
+                            .form-group
+                                label Сумма возврата:
+                                input.form-control(formControlName="amount")
+                                span.helpBlock(*ngIf="account") Баланс основного счета: {{account.availableAmount | kofRoubleCurrency}} {{account.currency | kofCurrency}}
+                    .form-group
+                        label Причина совершения операции:
+                        textarea.form-control(formControlName="reason", rows="5")
+            .modal-footer
+                .btn-toolbar
+                    .btn-group.btn-group-sm(*ngIf="!inProcess")
+                        button.btn.btn-default((click)="close()") Отмена
+                    .btn-group.btn-group-sm.pull-right
+                        button.btn.btn-primary(
+                            *ngIf="!inProcess",
+                            [disabled]="!form.valid",
+                            (click)="refundPayment()") Совершить возврат платежа
+                        button.btn.btn-primary(*ngIf="inProcess", disabled="true")
+                            i.fa.fa-cog.fa-spin.fa-1x.fa-fw
+                            span В процессе...

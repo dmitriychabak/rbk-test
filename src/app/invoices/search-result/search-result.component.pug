@@ -1,0 +1,20 @@
+table.table.table-striped
+    thead
+        tr
+            th.hidden-xs Идентификатор
+            th.hidden-xs Продукт
+            th Статус
+            th Стоимость
+            th.hidden-xs Время создания
+            th
+    tbody(*ngFor="let invoice of invoices | async")
+        tr
+            td.hidden-xs {{invoice.id}}
+            td.hidden-xs {{invoice.product}}
+            td
+                span.label.label-default([ngClass]="getLabelClass(invoice.status)") {{invoice.status | kofInvoiceStatus}}
+            td {{invoice.amount | kofRoubleCurrency}} {{invoice.currency | kofCurrency}}
+            td.hidden-xs {{invoice.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+            td
+                .pull-right
+                    button.btn.btn-xs.btn-default((click)="gotToInvoiceDetails(invoice.id)") Детали

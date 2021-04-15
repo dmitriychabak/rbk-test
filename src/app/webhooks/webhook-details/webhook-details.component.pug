@@ -1,0 +1,43 @@
+doctype html
+form.form-horizontal.form-label-left.css-form
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left Идентификатор:
+        .col-xs-12.col-sm-8
+            div {{webhook.id}}
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left Предмет оповещений:
+        .col-xs-12.col-sm-8
+            div {{webhook.scope.topic | kofWebhookTopic}}
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left События:
+        .col-xs-12.col-sm-8
+            .row(*ngFor="let eventType of webhook.scope.eventTypes")
+                .col-xs-12 {{eventType}}
+    .form-group
+        .col-xs-12.col-sm-4
+            label.text-left Публичный ключ:
+        .col-xs-12.col-sm-8
+            textarea.form-control.key-textarea(#webhookPublicKey, readonly, [value]="webhook.publicKey", rows=10)
+        .col-xs-12.col-sm-4.col-sm-offset-8.text-right
+            button.btn.btn-default.btn-primary.copy-key-btn((click)="copy()")
+                | Скопировать ключ
+    .ln_solid
+    .form-group
+        .col-xs-12
+            button.btn.btn-sm.btn-danger(data-toggle="modal", [attr.data-target]="'#' + webhook.id", data-backdrop="false")
+                | Удалить webhook
+            .modal.fade.remove-modal(tabindex="-1", role="dialog", id="{{webhook.id}}")
+                .modal-dialog.modal-sm
+                    .modal-content
+                        .modal-header
+                            h5.modal-title Подтвердите свое действие
+                        .modal-body Удалить webhook c ID {{webhook.id}}?
+                        .modal-footer
+                            .btn-toolbar.pull-right
+                                .btn-group.btn-group-sm
+                                    button.btn.btn-default(data-dismiss="modal") Нет
+                                .btn-group.btn-group-sm
+                                    button.btn.btn-danger(data-dismiss="modal", (click)="deleteWebhook()") Да
